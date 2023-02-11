@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import jsonData from './data.json';
 
 const HEADERS = [
@@ -28,11 +28,36 @@ type Entry = {
   lastName: string;
   primaryGroup: string;
   phoneNumber: string;
-  hoursStudied: number;
+  hoursStudied: string;
 };
 
 export default function Table() {
-  const [data, setData] = useState(jsonData.students.sort(cmp("firstName")));
+  const [data, setData] = useState(sortedData);
+  const [searchValue, setSearchValue] = useState("");
+
+  useEffect(() => {
+    if (searchValue.length > 0) {
+      const newData = sortedData.filter((entry) =>
+        Object.values(entry).some((text) =>
+          text.toLowerCase().includes(searchValue.toLowerCase())));
+      setData(newData);
+    } else {
+      setData(sortedData);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchValue])
+
+  const search = (
+    <div className="Search">
+      <input
+        aria-label="Search"
+        placeholder="Search..."
+        type="text"
+        value={searchValue}
+        onChange={(e) => setSearchValue(e.target.value)}
+      />
+    </div>
+  );
 
   const renderRow = (entry: Entry) => (
     <tr key={entry.email}>
@@ -41,18 +66,23 @@ export default function Table() {
   )
 
   return (
-    <table className="Table">
-      <thead>
-        <tr key={'headers'}>
-          {HEADERS.map((header, index) => (<th key={index}>{header}</th>))}
-        </tr>
-      </thead>
-      <tbody>
-        {data.map((entry) => renderRow(entry))}
-      </tbody>
-    </table>
+    <div className="wrapper">
+      {search}
+      <table className="Table">
+        <thead>
+          <tr key={'headers'}>
+            {HEADERS.map((header, index) => (<th key={index}>{header}</th>))}
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((entry) => renderRow(entry))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 
 const cmp = (attr: Attribute) => (a: Entry, b: Entry) =>
   (a[attr] > b[attr]) ? 1 : ((b[attr] > a[attr]) ? -1 : 0);
+
+const sortedData = jsonData.students.sort(cmp("firstName"))
