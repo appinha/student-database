@@ -1,38 +1,58 @@
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+  background-color: #3a387a;
+  color: white;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  text-align: center;
+  font-size: 14pt;
 }
 
-.App-link {
-  color: #61dafb;
+.App-header {
+  margin-top: 60px;
+  margin-bottom: 40px;
+  padding: 0 40px 0;
+  font-size: 30pt;
+  font-weight: bold;
+  color: #1bcbdd;
+  background: linear-gradient(0deg,rgba(48,45,104,1) 50%,rgba(255,255,255,0) 50%);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.Table {
+  min-width: 400px;
+  margin: 25px 0;
+  border-collapse: collapse;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.30);
+  font-size: 13pt;
+}
+
+.Table thead tr {
+  background-color: #1bcbdd;
+  color: #ffffff;
+  text-align: left;
+}
+
+.Table th,
+.Table td {
+    padding: 12px 15px;
   }
-  to {
-    transform: rotate(360deg);
-  }
+
+.Table tbody tr {
+  background-color: #f3f3f3;
+  color: #302d67;
+  border-bottom: 1px solid #dddddd;
+}
+
+.Table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.Table tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+.Table tbody tr.active-row {
+  font-weight: bold;
+  color: #009879;
 }

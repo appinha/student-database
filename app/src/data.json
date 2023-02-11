@@ -1,0 +1,20 @@
+{
+  "students": [
+    {
+      "email": "something@somewhere.com",
+      "firstName": "Joe",
+      "lastName": "Smith Jr",
+      "primaryGroup": "Important People",
+      "phoneNumber": "781-633-2222",
+      "hoursStudied": 1000
+    },
+    {
+      "email": "anna@somewhere.com",
+      "firstName": "Anna",
+      "lastName": "Smith",
+      "primaryGroup": "Important People",
+      "phoneNumber": "781-633-2222",
+      "hoursStudied": 1200
+    }
+  ]
+}
