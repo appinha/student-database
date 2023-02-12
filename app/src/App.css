@@ -49,6 +49,12 @@
   font-size: 13pt;
 }
 
+.Table thead tr th span {
+  margin-left: 8px;
+  cursor: pointer;
+  font-family: monospace;
+}
+
 .Table th,
 .Table td {
     padding: 12px 15px;

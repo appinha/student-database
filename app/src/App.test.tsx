@@ -21,7 +21,7 @@ describe('<App />', () => {
     const { container } = renderComponent();
 
     expect(container).toHaveTextContent(/Anna(.*)Jane(.*)Joe(.*)Paul/i);
-  })
+  });
 
   test('filters data by search input value (case insensitive)', () => {
     const { container } = renderComponent();
@@ -39,5 +39,16 @@ describe('<App />', () => {
     expect(container).toHaveTextContent(/Jane(.*)Joe(.*)/i);
     expect(container).not.toHaveTextContent(/Anna/i);
     expect(container).not.toHaveTextContent(/Paul/i);
+  });
+
+  test('sorts data', () => {
+    const { container } = renderComponent();
+
+    expect(container).toHaveTextContent(/Anna(.*)Jane(.*)Joe(.*)Paul/i);
+
+    const sortButton = screen.getAllByText('▼')[0];
+    fireEvent.click(sortButton);
+
+    expect(container).toHaveTextContent(/Paul(.*)Joe(.*)Jane(.*)Anna/i);
   })
 });
