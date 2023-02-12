@@ -57,18 +57,18 @@ const initSortingState = () => Object.values(HEADER_MAP).reduce((acc, value) =>
 
 export default function Table() {
   const [data, setData] = useState(originalData);
+  const [filteredData, setFilteredData] = useState(originalData);
   const [searchValue, setSearchValue] = useState("");
   const [sorting, setSorting] = useState(initSortingState);
 
   useEffect(() => {
     if (searchValue.length > 0) {
-      const newData = originalData.filter((entry) =>
+      const newData = data.filter((entry) =>
         Object.values(entry).some((text) =>
           text.toLowerCase().includes(searchValue.toLowerCase())));
-      setData(newData);
+      setFilteredData(newData);
     } else {
-      setData(originalData);
-      setSorting(initSortingState());
+      setFilteredData(data);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchValue])
@@ -124,7 +124,7 @@ export default function Table() {
           {headerRow}
         </thead>
         <tbody>
-          {data.map((entry) => renderRow(entry))}
+          {filteredData.map((entry) => renderRow(entry))}
         </tbody>
       </table>
     </div>

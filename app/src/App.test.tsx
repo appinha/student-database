@@ -50,5 +50,24 @@ describe('<App />', () => {
     fireEvent.click(sortButton);
 
     expect(container).toHaveTextContent(/Paul(.*)Joe(.*)Jane(.*)Anna/i);
-  })
+    fireEvent.click(sortButton);
+  });
+
+  test('filtering and sorting data work together properly', () => {
+    const { container } = renderComponent();
+
+    expect(container).toHaveTextContent(/Anna(.*)Jane(.*)Joe(.*)Paul/i);
+
+    const sortButton = screen.getAllByText('▼')[0];
+    fireEvent.click(sortButton);
+
+    expect(container).toHaveTextContent(/Paul(.*)Joe(.*)Jane(.*)Anna/i);
+
+    const textArea = screen.getByRole("textbox");
+    fireEvent.change(textArea, { target: {value: "j"} });
+
+    expect(container).toHaveTextContent(/Joe(.*)Jane(.*)/i);
+    expect(container).not.toHaveTextContent(/Anna/i);
+    expect(container).not.toHaveTextContent(/Paul/i);
+  });
 });
