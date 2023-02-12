@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import jsonData from './data.json';
 
 const ORDERED_HEADERS = [
@@ -61,7 +61,9 @@ export default function Table() {
   const [searchValue, setSearchValue] = useState("");
   const [sorting, setSorting] = useState(initSortingState);
 
-  useEffect(() => {
+  const handleSearchBarChange = (searchValue: string) => {
+    setSearchValue(searchValue);
+
     if (searchValue.length > 0) {
       const newData = data.filter((entry) =>
         Object.values(entry).some((text) =>
@@ -69,9 +71,8 @@ export default function Table() {
       setFilteredData(newData);
     } else {
       setFilteredData(data);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchValue])
+    };
+  };
 
   const searchBar = (
     <div className="Search">
@@ -80,7 +81,7 @@ export default function Table() {
         placeholder="Search..."
         type="text"
         value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
+        onChange={(e) => handleSearchBarChange(e.target.value)}
       />
     </div>
   );
