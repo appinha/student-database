@@ -41,6 +41,16 @@ describe('<App />', () => {
     expect(container).not.toHaveTextContent(/Paul/i);
   });
 
+  test('filters data by search input value (case insensitive) for primary group', () => {
+    const { container } = renderComponent();
+
+    const textArea = screen.getByRole("textbox");
+    fireEvent.change(textArea, { target: {value: "voxy"} });
+
+    expect(container).toHaveTextContent(/Voxy/i);
+    expect(container).not.toHaveTextContent(/Important People/i);
+  });
+
   test('sorts data', () => {
     const { container } = renderComponent();
 

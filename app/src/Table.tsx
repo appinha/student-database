@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import AddNewEntry from './AddNewEntry';
 import jsonData from './data.json';
 
 const ORDERED_HEADERS = [
@@ -22,7 +23,7 @@ const HEADER_MAP = {
 type Header = keyof typeof HEADER_MAP;
 type Attribute = typeof HEADER_MAP[Header];
 
-type Entry = {
+export type Entry = {
   [key in Attribute]: string;
 };
 
@@ -117,8 +118,13 @@ export default function Table() {
     </tr>
   );
 
+  const handleAddNewEntrySubmit = (entry: Entry) => {
+    setData([ ...data, entry ]);
+  };
+
   return (
     <div className="wrapper">
+      <AddNewEntry handleAddNewEntrySubmit={handleAddNewEntrySubmit} />
       {searchBar}
       <table className="Table">
         <thead>
